@@ -2,6 +2,7 @@ var selector = '';
 var remover = '';
 var innerFind = '';
 var attr = '';
+var split = '';
 
 chrome.extension.onMessage.addListener(function (request, sender) {
     if (request.action == "getSource") {
@@ -12,6 +13,12 @@ chrome.extension.onMessage.addListener(function (request, sender) {
 
 function applySource(source) {
     var html = '<table class="table table-bordered">';
+
+    var isLastOpt = false;
+    if (split.indexOf('last:') != -1) {
+        isLastOpt = true;
+        split = split.replace('last:', '');
+    }
 
     $(source).find(selector).each(function () {
         var finded = '';
@@ -49,8 +56,31 @@ function applySource(source) {
             while (finded.indexOf(' ') == 0 && finded.indexOf(' ') != -1) finded = finded.substring(1, finded.length);
             while (finded.lastIndexOf(' ') == finded.length - 1 && finded.lastIndexOf(' ') != -1) finded = finded.substring(0, finded.length - 1);
 
-            if (finded.length > 0)
-                html += '<tr><td>' + finded + '</td></tr>';
+            console.log(isLastOpt);
+
+            if (finded.length > 0) {
+                if (split.length > 0 && finded.indexOf(split) != -1) {
+                    var findedSplit = finded.split(split);
+                    html += '<tr>';
+                    for (var i = 0; i < findedSplit.length; i++) {
+                        if (isLastOpt) {
+                            if (i == findedSplit.length - 1) {
+                                html = html.substring(0, html.length - 1);
+                                html += '</td><td>' + findedSplit[i] + '</td>';
+                            } else if (i == 0) {
+                                html += '<td>' + findedSplit[i] + '.';
+                            } else {
+                                html += findedSplit[i] + '.';
+                            }
+                        } else {
+                            html += '<td>' + findedSplit[i] + '</td>';
+                        }
+                    }
+                    html += '</tr>';
+                } else {
+                    html += '<tr><td>' + finded + '</td></tr>';
+                }
+            }
         }
     });
 
@@ -63,6 +93,7 @@ function onWindowLoad() {
     $('#remover-input').val(localStorage.remover);
     $('#attr-input').val(localStorage.attr);
     $('#inner-input').val(localStorage.innerFind);
+    $('#split-input').val(localStorage.split);
 
     $('#submit').click(function () {
         $('#result').html('');
@@ -70,11 +101,13 @@ function onWindowLoad() {
         remover = $('#remover-input').val();
         attr = $('#attr-input').val();
         innerFind = $('#inner-input').val();
+        split = $('#split-input').val();
 
         localStorage.selector = selector;
         localStorage.remover = remover;
         localStorage.attr = attr;
         localStorage.innerFind = innerFind;
+        localStorage.split = split;
 
         findList();
     });
