@@ -15,9 +15,15 @@ function applySource(source) {
     var html = '<table class="table table-bordered">';
 
     var isLastOpt = false;
+    var isFirstOpt = false;
     if (split.indexOf('last:') != -1) {
         isLastOpt = true;
         split = split.replace('last:', '');
+    }
+
+    if (split.indexOf('first:') != -1) {
+        isFirstOpt = true;
+        split = split.replace('first:', '');
     }
 
     $(source).find(selector).each(function () {
@@ -56,8 +62,6 @@ function applySource(source) {
             while (finded.indexOf(' ') == 0 && finded.indexOf(' ') != -1) finded = finded.substring(1, finded.length);
             while (finded.lastIndexOf(' ') == finded.length - 1 && finded.lastIndexOf(' ') != -1) finded = finded.substring(0, finded.length - 1);
 
-            console.log(isLastOpt);
-
             if (finded.length > 0) {
                 if (split.length > 0 && finded.indexOf(split) != -1) {
                     var findedSplit = finded.split(split);
@@ -65,12 +69,20 @@ function applySource(source) {
                     for (var i = 0; i < findedSplit.length; i++) {
                         if (isLastOpt) {
                             if (i == findedSplit.length - 1) {
-                                html = html.substring(0, html.length - 1);
+                                html = html.substring(0, html.length - split.length);
                                 html += '</td><td>' + findedSplit[i] + '</td>';
                             } else if (i == 0) {
-                                html += '<td>' + findedSplit[i] + '.';
+                                html += '<td>' + findedSplit[i] + split;
                             } else {
-                                html += findedSplit[i] + '.';
+                                html += findedSplit[i] + split;
+                            }
+                        } else if (isFirstOpt) {
+                            if (i == findedSplit.length - 1) {
+                                html += findedSplit[i] + '</td>';
+                            } else if (i == 0) {
+                                html += '<td>' + findedSplit[i] + '</td><td>';
+                            } else {
+                                html += findedSplit[i] + split;
                             }
                         } else {
                             html += '<td>' + findedSplit[i] + '</td>';
