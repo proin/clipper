@@ -2,7 +2,7 @@
 
 Clipper is Chrome Extension which is extracting some values in active tab by css selector.
 
-![alt tag](https://github.com/proin/Parser-ChromeExtension/blob/master/lib/example.png?raw=true)
+![alt tag](https://github.com/proin/Parser-ChromeExtension/blob/master/example.png?raw=true)
 
 ## How to Install
 1. download this repo. and unzip.
