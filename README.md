@@ -18,6 +18,7 @@ Clipper is Chrome Extension which is extracting some values in active tab by css
 
 ## Search Parameters
 - css selector (top input): find elements by css selector, basically each elements attribute(innerText) is printing application.
-- remover (left input): remove elements in finded element.
-- inner (center input): find elements in finded element.
-- attr (right input): attribute to print applicatiion. text means innerText, other attributes like to basic css attributes (ex. href, title, etc).
+- remover (1st input): remove elements in finded element.
+- inner-selector (2nd input): find elements in finded element.
+- split (3rd input): split table by char. if input `last:` before split char, split table at last split char. ex) `.`, `last:.`
+- attr (4th input): attribute to print applicatiion. text means innerText, other attributes like to basic css attributes (ex. href, title, etc).
