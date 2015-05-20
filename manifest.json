@@ -1,7 +1,7 @@
 {
     "manifest_version": 2,
-    "name": "Parser",
-    "description": "This extension shows a Google Image search result for the current page",
+    "name": "Clipper",
+    "description": "Clipper is Chrome Extension which is extracting some values in active tab by css selector.",
     "version": "1.0",
     "browser_action": {
         "default_icon": "icon.png",
