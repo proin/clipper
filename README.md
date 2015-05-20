@@ -1,6 +1,8 @@
 # Parser-ChromeExtension
 HTML Parser for Chrome
 
+![alt tag](https://github.com/proin/Parser-ChromeExtension/blob/master/lib/example.png?raw=true)
+
 ## How to Install
 1. download this repo. and unzip.
 2. move to `chrome://extensions` and click load extension button.
