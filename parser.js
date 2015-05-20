@@ -41,15 +41,13 @@ function applySource(source) {
             }
         }
 
-        console.log(finded);
-
         if (finded.length > 0) {
             finded = finded.replace(/\t/gi, ' ');
             finded = finded.replace(/\n/gi, ' ');
             finded = finded.replace(/&nbsp;/gi, ' ');
             while (finded.indexOf('  ') != -1) finded = finded.replace(/  /gi, ' ');
-            while (finded.indexOf(' ') == 0) finded = finded.substring(1, finded.length);
-            while (finded.lastIndexOf(' ') == finded.length - 1) finded = finded.substring(0, finded.length - 1);
+            while (finded.indexOf(' ') == 0 && finded.indexOf(' ') != -1) finded = finded.substring(1, finded.length);
+            while (finded.lastIndexOf(' ') == finded.length - 1 && finded.lastIndexOf(' ') != -1) finded = finded.substring(0, finded.length - 1);
 
             if (finded.length > 0)
                 html += '<tr><td>' + finded + '</td></tr>';
